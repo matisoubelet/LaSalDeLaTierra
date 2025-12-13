@@ -1,0 +1,9 @@
+# Entorno
+.env
+
+# Logs
+discord.log
+
+# Python
+__pycache__/
+*.pyc
