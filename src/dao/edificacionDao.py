@@ -107,64 +107,33 @@ class EdificacionDao:
         return None
 
 
+    def agregar(self,nombre, descripcion, efecto, industria, riqueza, riqXturno):
 
+        resultado = 0
+        
+        resultado_sp = self.cursor.callproc('AGREGAR_EDIFICACION',
+            (
+            nombre,
+            descripcion,
+            efecto,
+            industria,
+            riqueza,
+            riqXturno,
+            resultado #Aca se guarda despues el valor del return del SP
+            )
+        )
 
+        if resultado_sp is None:
+            self.close_cursor()
+            self.cursor = self.db.cursor()
+            return -1
 
-    # def listarIndustria(self)-> List[Edificacion]:
-    #     listaEdificaciones = []
+        resultadoTupla = tuple(resultado_sp) #Transformamos a una tupla para que Pylance no se queje
+        out = resultadoTupla[-1] #Guardamos el valor OUT del SP, que siempre es el ultimo (por eso el -1)
 
-    #     # Llamamos al stored procedure
-    #     self.cursor.callproc('EDIFICACIONES_INDUSTRIA')
+        resultado: int = 1 if out == 1 else 0 #Como sabemos que el valor OUT SIEMPRE es o 1 o 0, lo ponemos de esta forma para que Pylance no se queje
 
-    #     for resultado in self.cursor.stored_results():
-    #         rows = resultado.fetchall()
-
-    #     for row in rows:
-    #         row = cast(Dict[str, Any], row)
-
-    #         edificacion = Edificacion(
-    #             id=row["ID"],
-    #             nombre=row["NOMBRE"],
-    #             descripcion=row["DESCRIPCION"],
-    #             efecto=row["EFECTO"],
-    #             industria=row["INDUSTRIA"],
-    #             riqueza=row["RIQUEZA"],
-    #             riqXturno=row["RIQ_X_TURNO"]
-    #         )
-
-    #         listaEdificaciones.append(edificacion)
-
-    #     self.close_cursor()
-    #     self.cursor = self.db.cursor()
-
-    #     return listaEdificaciones
-    
-
-    # def listarRiqueza(self)-> List[Edificacion]:
-    #     listaEdificaciones = []
-
-    #     # Llamamos al stored procedure
-    #     self.cursor.callproc('EDIFICACIONES_RIQUEZA')
-
-    #     for resultado in self.cursor.stored_results():
-    #         rows = resultado.fetchall()
-
-    #     for row in rows:
-    #         row = cast(Dict[str, Any], row)
-
-    #         edificacion = Edificacion(
-    #             id=row["ID"],
-    #             nombre=row["NOMBRE"],
-    #             descripcion=row["DESCRIPCION"],
-    #             efecto=row["EFECTO"],
-    #             industria=row["INDUSTRIA"],
-    #             riqueza=row["RIQUEZA"],
-    #             riqXturno=row["RIQ_X_TURNO"]
-    #         )
-
-    #         listaEdificaciones.append(edificacion)
-
-    #     self.close_cursor()
-    #     self.cursor = self.db.cursor()
-
-    #     return listaEdificaciones
+        self.db.commit() #Esto se debe poner tras ejecutar el prodecidimiento, siempre que se trate de un ALTER, DELETE o INSERT.
+        self.close_cursor()
+        self.cursor = self.db.cursor()
+        return resultado

@@ -19,8 +19,5 @@ class EdificacionNegocio:
         return self.dao.buscarXnombre(nombre)
 
 
-    # def listarIndustria(self):
-    #     return self.dao.listarIndustria()
-    
-    # def listarRiqueza(self):
-    #     return self.dao.listarRiqueza()
+    def agregar(self,nombre, descripcion, efecto, industria, riqueza, riqXturno):
+        return self.dao.agregar(nombre, descripcion, efecto, industria, riqueza, riqXturno)

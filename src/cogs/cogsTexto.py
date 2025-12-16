@@ -5,7 +5,9 @@ from negocio.terrenoNegocio import TerrenoNegocio
 from negocio.edificacionNegocio import EdificacionNegocio
 from models.terreno import Terreno
 from models.edificacion import Edificacion
-from models.modalEdificacion import ModalEdificacion
+from models.modalEdificacionModificar import ModalEdificacionModificar
+from models.modalEdificacionAgregar import ModalEdificacionAgregar
+
 
 class CogsTexto(commands.Cog):
     
@@ -159,7 +161,7 @@ class CogsTexto(commands.Cog):
         
         await interaction.response.send_message(embed=embed)
 
-    @app_commands.command(name="modificar_edificacion", description= "Modifica una edificacion segun su nombre")
+    @app_commands.command(name="modificar_edificacion", description= "Modifica una edificacion segun su nombre.")
     @app_commands.describe(nombre = "Nombre de la edificacion")
     async def modificarEdificacion(self, interaction: discord.Interaction, nombre:str):
 
@@ -170,5 +172,13 @@ class CogsTexto(commands.Cog):
             await interaction.response.send_message("La edificacion no existe", ephemeral=True)
             return
 
-        modal = ModalEdificacion(edificacion)
+        modal = ModalEdificacionModificar(edificacion)
+        await interaction.response.send_modal(modal)
+
+    
+    @app_commands.command(name="agregar_edificacion", description= "Agrega una edificacion nueva.")
+    @app_commands.describe(nombre = "Nombre de la edificacion")
+    async def agregarEdificacion(self, interaction: discord.Interaction, nombre:str):
+
+        modal = ModalEdificacionAgregar(nombre)
         await interaction.response.send_modal(modal)
