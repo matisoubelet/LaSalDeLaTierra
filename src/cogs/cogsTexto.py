@@ -56,79 +56,20 @@ class CogsTexto(commands.Cog):
 
         await interaction.response.send_message(embed=embed, view=view)
 
-        # embed = discord.Embed(
-        #         title = "EDIFICACIONES",
-        #         description = "Listado de las edificaciones y sus costos.",
-        #         color= discord.Color.purple()
-        #     )
-        
-        # embed.set_author(
-        #     name = "Click aqui para ir a la documentacion oficial.",
-        #     url= "https://docs.google.com/document/d/1wnPvT7RU1o_hiH1Z-FabJDJ1SyXkV00c9YKCcsU3P9Q/edit?usp=sharing"
-        # )
-
-        # for e in listEdificaciones:
-        #     embed.add_field(
-        #         name = f"{e.getNombre().upper()}\n" + "‾" * (len(e.getNombre())+3),
-        #         value = e.getDescripcion(),
-        #         inline= False
-        #         )
-        #     embed.add_field(
-        #         name = "Industria:",
-        #         value= e.getIndustria()
-        #     )
-        #     if e.getRiqXturno():
-        #         embed.add_field(
-        #             name = "Riqueza:",
-        #             value= f"{e.getRiqueza()} X turno"
-        #         )
-        #     else:
-        #         embed.add_field(
-        #             name = "Riqueza:",
-        #             value= f"{e.getRiqueza()}"
-        #         )
-        
-        # await interaction.response.send_message(embed=embed)
-
 
     @app_commands.command(name="industria", description= "Lista de edificaciones con costo en industria")
     async def industria(self, interaction: discord.Interaction):
         edificacionNegocio = EdificacionNegocio()
         listEdificaciones = edificacionNegocio.listar(1)
 
-        embed = discord.Embed(
-                title = "EDIFICACIONES",
-                description = "Listado de las edificaciones que cuesten industria.",
-                color= discord.Color.purple()
-            )
-        
-        embed.set_author(
-            name = "Click aqui para ir a la documentacion oficial.",
-            url= "https://docs.google.com/document/d/1wnPvT7RU1o_hiH1Z-FabJDJ1SyXkV00c9YKCcsU3P9Q/edit?usp=sharing"
-        )
+        if not listEdificaciones:
+            await interaction.response.send_message("No hay edificaciones registradas.", ephemeral=True)
+            return
 
-        for e in listEdificaciones:
-            embed.add_field(
-                name = f"{e.getNombre().upper()}\n" + "‾" * (len(e.getNombre())+3),
-                value = e.getDescripcion(),
-                inline= False
-                )
-            embed.add_field(
-                name = "Industria:",
-                value= e.getIndustria()
-            )
-            if e.getRiqXturno():
-                embed.add_field(
-                    name = "Riqueza:",
-                    value= f"{e.getRiqueza()} X turno"
-                )
-            else:
-                embed.add_field(
-                    name = "Riqueza:",
-                    value= f"{e.getRiqueza()}"
-                )
-        
-        await interaction.response.send_message(embed=embed)
+        view = ViewEdificacion(listEdificaciones)
+        embed = view.crear_embed()
+
+        await interaction.response.send_message(embed=embed, view=view)
 
 
     @app_commands.command(name="riqueza", description= "Lista de edificaciones con costo en riqueza")
@@ -136,39 +77,15 @@ class CogsTexto(commands.Cog):
         edificacionNegocio = EdificacionNegocio()
         listEdificaciones = edificacionNegocio.listar(2)
 
-        embed = discord.Embed(
-                title = "EDIFICACIONES",
-                description = "Listado de las edificaciones que cuesten riqueza.",
-                color= discord.Color.purple()
-            )
-        
-        embed.set_author(
-            name = "Click aqui para ir a la documentacion oficial.",
-            url= "https://docs.google.com/document/d/1wnPvT7RU1o_hiH1Z-FabJDJ1SyXkV00c9YKCcsU3P9Q/edit?usp=sharing"
-        )
+        if not listEdificaciones:
+            await interaction.response.send_message("No hay edificaciones registradas.", ephemeral=True)
+            return
 
-        for e in listEdificaciones:
-            embed.add_field(
-                name = f"{e.getNombre().upper()}\n" + "‾" * (len(e.getNombre())+3),
-                value = e.getDescripcion(),
-                inline= False
-                )
-            embed.add_field(
-                name = "Industria:",
-                value= e.getIndustria()
-            )
-            if e.getRiqXturno():
-                embed.add_field(
-                    name = "Riqueza:",
-                    value= f"{e.getRiqueza()} X turno"
-                )
-            else:
-                embed.add_field(
-                    name = "Riqueza:",
-                    value= f"{e.getRiqueza()}"
-                )
-        
-        await interaction.response.send_message(embed=embed)
+        view = ViewEdificacion(listEdificaciones)
+        embed = view.crear_embed()
+
+        await interaction.response.send_message(embed=embed, view=view)
+
 
     @app_commands.command(name="modificar_edificacion", description= "Modifica una edificacion segun su nombre.")
     @app_commands.describe(nombre = "Nombre de la edificacion")
