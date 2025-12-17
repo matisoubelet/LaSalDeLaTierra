@@ -21,3 +21,6 @@ class EdificacionNegocio:
 
     def agregar(self,nombre, descripcion, efecto, industria, riqueza, riqXturno):
         return self.dao.agregar(nombre, descripcion, efecto, industria, riqueza, riqXturno)
+    
+    def eliminar(self, nombre):
+        return self.dao.eliminar(nombre)

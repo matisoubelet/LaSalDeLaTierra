@@ -1,5 +1,5 @@
 import mysql.connector
-from typing import Dict, Any, cast, List, Optional
+from typing import Dict, Any, cast, List, Optional, Tuple
 from dao.database import Database
 from models.edificacion import Edificacion
 
@@ -137,3 +137,32 @@ class EdificacionDao:
         self.close_cursor()
         self.cursor = self.db.cursor()
         return resultado
+    
+
+    def eliminar(self, nombre):
+
+        self.cursor.callproc("ELIMINAR_EDIFICACION", (nombre,))
+
+        resultado = None
+
+        for result in self.cursor.stored_results():
+            fila = result.fetchone()
+            if fila is not None:
+                fila = tuple(fila) 
+                resultado = fila[0]
+
+        self.db.commit()
+        self.close_cursor()
+        self.cursor = self.db.cursor()
+
+        if resultado is None:
+            return -1 
+        elif resultado:
+            return 1
+        else:
+            return 0
+
+        
+
+
+        

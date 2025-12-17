@@ -8,6 +8,7 @@ from models.edificacion import Edificacion
 from models.modalEdificacionModificar import ModalEdificacionModificar
 from models.modalEdificacionAgregar import ModalEdificacionAgregar
 from models.viewEdificacion import ViewEdificacion
+from models.viewEdificacionEliminar import ViewEdificacionEliminar
 
 
 class CogsTexto(commands.Cog):
@@ -94,7 +95,7 @@ class CogsTexto(commands.Cog):
         edificacionNegocio = EdificacionNegocio()
         edificacion = edificacionNegocio.buscarXnombre(nombre)
 
-        if edificacion == None:
+        if edificacion is None:
             await interaction.response.send_message("La edificacion no existe", ephemeral=True)
             return
 
@@ -108,3 +109,21 @@ class CogsTexto(commands.Cog):
 
         modal = ModalEdificacionAgregar(nombre)
         await interaction.response.send_modal(modal)
+
+    
+    @app_commands.command(name="eliminar_edificacion", description= "Elimina una edificacion.")
+    @app_commands.describe(nombre = "Nombre de la edificacion")
+    async def eliminarEdificacion(self, interaction: discord.Interaction, nombre:str):
+
+        edificacionNegocio = EdificacionNegocio()
+        edificacion = edificacionNegocio.buscarXnombre(nombre)
+
+        if edificacion is None:
+            await interaction.response.send_message("La edificacion no existe", ephemeral=True)
+            return
+        
+        view = ViewEdificacionEliminar(edificacion)
+        embed = view.crear_embed()
+
+        await interaction.response.send_message(embed=embed, view=view)
+
