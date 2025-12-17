@@ -1,6 +1,4 @@
 import discord
-from math import ceil
-from typing import List
 from models.edificacion import Edificacion
 from negocio.edificacionNegocio import EdificacionNegocio
 

@@ -3,16 +3,22 @@ from dao.terrenoDao import TerrenoDao
 class TerrenoNegocio:
 
     def __init__(self):
-        self.terrenoNegocio = TerrenoDao()
+        self.dao = TerrenoDao()
     
 
     def close(self):
-        return self.terrenoNegocio.close()
+        return self.dao.close_cursor()
 
 
     def listar(self):
-        return self.terrenoNegocio.listar()
+        return self.dao.listar()
     
 
-    def listarID(self, id):
-        return self.terrenoNegocio.listarID(id)
+    def buscarXnombre(self, nombre):
+        return self.dao.buscarXnombre(nombre)
+    
+
+    def eliminar(self, nombre):
+        return self.dao.eliminar(nombre)
+    
+    

@@ -7,6 +7,8 @@ from models.modalEdificacionModificar import ModalEdificacionModificar
 from models.modalEdificacionAgregar import ModalEdificacionAgregar
 from models.viewEdificacion import ViewEdificacion
 from models.viewEdificacionEliminar import ViewEdificacionEliminar
+from models.viewTerreno import ViewTerreno
+from models.viewTerrenoEliminar import ViewTerrenoEliminar
 
 
 class CogsTexto(commands.Cog):
@@ -20,25 +22,31 @@ class CogsTexto(commands.Cog):
         terrenoNegocio = TerrenoNegocio()
         listTerrenos = terrenoNegocio.listar()
 
-        embed = discord.Embed(
-                title = "TERRENOS",
-                description = "Listado de los terrenos existentes.",
-                color= discord.Color.green()
-            )
-        
-        embed.set_author(
-            name = "Click aqui para ir a la documentacion oficial.",
-            url= "https://docs.google.com/document/d/1wnPvT7RU1o_hiH1Z-FabJDJ1SyXkV00c9YKCcsU3P9Q/edit?usp=sharing"
-        )
+        if not listTerrenos:
+            await interaction.response.send_message("No hay terrenos registrados.", ephemeral=True)
+            return
 
-        for t in listTerrenos:
-            embed.add_field(
-                name = f"{t.getNombre()}:",
-                value = t.getDescripcion(),
-                inline= False
-                )
+        view = ViewTerreno(listTerrenos)
+        embed = view.crear_embed()
+
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
+
+    
+    @app_commands.command(name="eliminar_terreno", description= "Elimina un terreno.")
+    @app_commands.describe(nombre = "Nombre del terreno")
+    async def eliminarTerreno(self, interaction: discord.Interaction, nombre:str):
+
+        terrenoNegocio = TerrenoNegocio()
+        terreno = terrenoNegocio.buscarXnombre(nombre)
+
+        if terreno is None:
+            await interaction.response.send_message("El terreno no existe", ephemeral=True)
+            return
         
-        await interaction.response.send_message(embed=embed, ephemeral=True)
+        view = ViewTerrenoEliminar(terreno)
+        embed = view.crear_embed()
+
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
     
 
     @app_commands.command(name="edificaciones", description= "Lista de edificaciones")
