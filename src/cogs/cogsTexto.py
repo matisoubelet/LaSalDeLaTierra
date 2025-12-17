@@ -9,7 +9,7 @@ from models.viewEdificacion import ViewEdificacion
 from models.viewEdificacionEliminar import ViewEdificacionEliminar
 from models.viewTerreno import ViewTerreno
 from models.viewTerrenoEliminar import ViewTerrenoEliminar
-
+from models.modalTerrenoAgregar import ModalTerrenoAgregar
 
 class CogsTexto(commands.Cog):
     
@@ -30,6 +30,14 @@ class CogsTexto(commands.Cog):
         embed = view.crear_embed()
 
         await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
+
+    
+    @app_commands.command(name="agregar_terreno", description= "Agrega un terreno nuevo.")
+    @app_commands.describe(nombre = "Nombre del terreno")
+    async def agregarTerreno(self, interaction: discord.Interaction, nombre:str):
+
+        modal = ModalTerrenoAgregar(nombre)
+        await interaction.response.send_modal(modal)
 
     
     @app_commands.command(name="eliminar_terreno", description= "Elimina un terreno.")

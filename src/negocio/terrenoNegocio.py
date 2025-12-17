@@ -21,4 +21,8 @@ class TerrenoNegocio:
     def eliminar(self, nombre):
         return self.dao.eliminar(nombre)
     
+
+    def agregar(self, nombre, descripcion):
+        return self.dao.agregar(nombre, descripcion)
+    
     

@@ -80,6 +80,28 @@ class TerrenoDao:
             return 0
 
 
-    
+    def agregar(self, nombre, descripcion) -> int:
+
+        self.cursor.execute(
+            "CALL AGREGAR_TERRENO(%s,%s)",
+            (nombre, descripcion)
+        )
+
+        resultado = 0
+
+        while True:
+            raw = self.cursor.fetchone()
+            if raw is not None:
+                fila = cast(Dict[str, Any], raw)
+                resultado = int(fila["RESULTADO"])
+
+            if not self.cursor.nextset():
+                break
+
+        self.db.commit()
+        self.close_cursor() 
+        self.cursor = self.db.cursor()
+
+        return resultado
     
     
