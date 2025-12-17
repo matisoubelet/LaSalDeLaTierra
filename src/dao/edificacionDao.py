@@ -107,37 +107,61 @@ class EdificacionDao:
         return None
 
 
-    def agregar(self,nombre, descripcion, efecto, industria, riqueza, riqXturno):
+    # def agregar(self,nombre, descripcion, efecto, industria, riqueza, riqXturno):
 
-        resultado = 0
+    #     resultado = 0
         
-        resultado_sp = self.cursor.callproc('AGREGAR_EDIFICACION',
-            (
-            nombre,
-            descripcion,
-            efecto,
-            industria,
-            riqueza,
-            riqXturno,
-            resultado #Aca se guarda despues el valor del return del SP
-            )
+    #     resultado_sp = self.cursor.callproc('AGREGAR_EDIFICACION',
+    #         (
+    #         nombre,
+    #         descripcion,
+    #         efecto,
+    #         industria,
+    #         riqueza,
+    #         riqXturno,
+    #         resultado #Aca se guarda despues el valor del return del SP
+    #         )
+    #     )
+
+    #     if resultado_sp is None:
+    #         self.close_cursor()
+    #         self.cursor = self.db.cursor()
+    #         return -1
+
+    #     resultadoTupla = tuple(resultado_sp) #Transformamos a una tupla para que Pylance no se queje
+    #     out = resultadoTupla[-1] #Guardamos el valor OUT del SP, que siempre es el ultimo (por eso el -1)
+    #     print(f"resultado en la funcion: {resultado}")
+    #     resultado: int = 1 if out == 1 else 0 #Como sabemos que el valor OUT SIEMPRE es o 1 o 0, lo ponemos de esta forma para que Pylance no se queje
+
+    #     self.db.commit() #Esto se debe poner tras ejecutar el prodecidimiento, siempre que se trate de un ALTER, DELETE o INSERT.
+    #     self.close_cursor()
+    #     self.cursor = self.db.cursor()
+    #     return resultado
+    
+
+    def agregar(self, nombre, descripcion, efecto, industria, riqueza, riqXturno) -> int:
+        self.cursor.execute(
+            "CALL AGREGAR_EDIFICACION(%s,%s,%s,%s,%s,%s)",
+            (nombre, descripcion, efecto, industria, riqueza, riqXturno)
         )
 
-        if resultado_sp is None:
-            self.close_cursor()
-            self.cursor = self.db.cursor()
-            return -1
+        resultado = 0
 
-        resultadoTupla = tuple(resultado_sp) #Transformamos a una tupla para que Pylance no se queje
-        out = resultadoTupla[-1] #Guardamos el valor OUT del SP, que siempre es el ultimo (por eso el -1)
+        while True:
+            raw = self.cursor.fetchone()
+            if raw is not None:
+                fila = cast(Dict[str, Any], raw)
+                resultado = int(fila["RESULTADO"])
 
-        resultado: int = 1 if out == 1 else 0 #Como sabemos que el valor OUT SIEMPRE es o 1 o 0, lo ponemos de esta forma para que Pylance no se queje
+            if not self.cursor.nextset():
+                break
 
-        self.db.commit() #Esto se debe poner tras ejecutar el prodecidimiento, siempre que se trate de un ALTER, DELETE o INSERT.
-        self.close_cursor()
+        self.db.commit()
+        self.close_cursor() 
         self.cursor = self.db.cursor()
+
         return resultado
-    
+
 
     def eliminar(self, nombre):
 

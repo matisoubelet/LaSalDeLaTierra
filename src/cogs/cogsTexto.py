@@ -3,8 +3,6 @@ from discord import app_commands #Para los slash commands
 import discord
 from negocio.terrenoNegocio import TerrenoNegocio
 from negocio.edificacionNegocio import EdificacionNegocio
-from models.terreno import Terreno
-from models.edificacion import Edificacion
 from models.modalEdificacionModificar import ModalEdificacionModificar
 from models.modalEdificacionAgregar import ModalEdificacionAgregar
 from models.viewEdificacion import ViewEdificacion
@@ -40,7 +38,7 @@ class CogsTexto(commands.Cog):
                 inline= False
                 )
         
-        await interaction.response.send_message(embed=embed)
+        await interaction.response.send_message(embed=embed, ephemeral=True)
     
 
     @app_commands.command(name="edificaciones", description= "Lista de edificaciones")
@@ -55,7 +53,7 @@ class CogsTexto(commands.Cog):
         view = ViewEdificacion(listEdificaciones)
         embed = view.crear_embed()
 
-        await interaction.response.send_message(embed=embed, view=view)
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
 
 
     @app_commands.command(name="industria", description= "Lista de edificaciones con costo en industria")
@@ -70,7 +68,7 @@ class CogsTexto(commands.Cog):
         view = ViewEdificacion(listEdificaciones)
         embed = view.crear_embed()
 
-        await interaction.response.send_message(embed=embed, view=view)
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
 
 
     @app_commands.command(name="riqueza", description= "Lista de edificaciones con costo en riqueza")
@@ -85,7 +83,7 @@ class CogsTexto(commands.Cog):
         view = ViewEdificacion(listEdificaciones)
         embed = view.crear_embed()
 
-        await interaction.response.send_message(embed=embed, view=view)
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
 
 
     @app_commands.command(name="modificar_edificacion", description= "Modifica una edificacion segun su nombre.")
@@ -125,5 +123,5 @@ class CogsTexto(commands.Cog):
         view = ViewEdificacionEliminar(edificacion)
         embed = view.crear_embed()
 
-        await interaction.response.send_message(embed=embed, view=view)
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
 
