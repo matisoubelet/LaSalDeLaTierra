@@ -24,7 +24,7 @@ class ModalTerrenoAgregar(discord.ui.Modal):
         #Verificamos que todos los campos tengan algun valor valido
         if (not self.input_descripcion.value.strip()):
 
-            await interaction.response.send_message("Debe completar todos los campos.", ephemeral=True)
+            await interaction.response.send_message("Debe completar el campo.", ephemeral=True)
             return
         
         negocio = TerrenoNegocio()

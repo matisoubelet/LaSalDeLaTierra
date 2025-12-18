@@ -41,3 +41,37 @@ VALUES
 SELECT * FROM COSTOS_EDIFICACIONES;
 
 
+INSERT INTO ACCIONES_DE_CIUDAD(NOMBRE, REQUISITO, DESCRIPCION, EFECTO)
+VALUES
+('Construir Asentamiento', 'El asentamiento debe ser construido adyacente a tu ciudad.', 'El asentamiento genera +1 Industria en un yacimiento o +1 Población en tierra fértil.', 1),
+('Mejorar Asentamiento: Ciudad', 'No tiene.', 'Convertí un asentamiento existente en una ciudad.', 0),
+('Mejorar Asentamiento: Fuerte', 'No tiene.', 'Convertí un asentamiento existente en un fuerte.', 0),
+('Construir Edificación', 'No tiene.', 'Consultar tabla de Edificaciones', 0),
+('Construir Rutas', 'Asentamiento o Ciudad destino controlado por tu Civ.', 'Conecta una ciudad o asentamiento con otra. ', 0),
+('Conducir Espionaje', 'No tiene.', 'Revela las órdenes del líder de la civilización para su próximo turno.', 0),
+('Reclutar Soldados', 'No tiene.', 'Unidad con Fuerza 25. Impacto 0', 0),
+('Reclutar Caravana', 'No tiene.', 'Unidad caravanera, usada para construir asentamientos lejos de la ciudad.', 0),
+('Reclutar Exploradores', 'No tiene.', 'Unidad exploradora', 0),
+('Entrenar Elite', 'No tiene.', 'Similar a Reclutar Soldados, pero posee una habilidad especial.', 0),
+('Entregar Ciudad/Asentamiento', 'No tiene.', 'Otorgas tu ciudad o asentamiento a quien elijas.', 0),
+('Reparar Daños', 'La edificacion debe haber sufrido daños.', 'Si un asentamiento o ciudad fue saqueada, debe ser reparada o no dará ninguna producción.', 0);
+
+SELECT * FROM ACCIONES_DE_CIUDAD;
+
+
+INSERT INTO COSTOS_ACCIONES_DE_CIUDAD(ID_ACCION, INDUSTRIA, POBLACION, RIQUEZA)
+VALUES
+(1, 2, 6, 0),
+(2, 6, 6, 4),
+(3, 6, 0, 4),
+(4, 0, 0, 0),
+(5, 1, 0, 0),
+(6, 0, 0, 4),
+(7, 0, 4, 0),
+(8, 0, 2, 0),
+(9, 0, 1, 0),
+(10, 0, 4, 4),
+(11, 0, 0, 0),
+(12, 2, 0, 0);
+
+SELECT * FROM COSTOS_ACCIONES_DE_CIUDAD;

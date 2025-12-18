@@ -26,7 +26,7 @@ class Bot(commands.Bot):
         self._token = token
 
     async def setup_hook(self):
-        from src.cogs.cogs import Cogs
+        from cogs.cogs import Cogs
         await self.add_cog(Cogs(self))
 
         try:

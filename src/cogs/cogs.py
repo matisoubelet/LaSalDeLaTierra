@@ -1,10 +1,9 @@
 from discord.ext import commands, tasks #Para los slash commands
 from discord import app_commands #Para los slash commands
 import discord
-from negocio import TerrenoNegocio, EdificacionNegocio
+from negocio import TerrenoNegocio, EdificacionNegocio, AccionesDeCiudadNegocio
 from ui.modals import ModalTerrenoAgregar, ModalEdificacionAgregar, ModalEdificacionModificar
-from ui.views import ViewTerrenoEliminar, ViewEdificacion, ViewEdificacionEliminar, ViewTerreno
-
+from ui.views import ViewTerrenoEliminar, ViewEdificacion, ViewEdificacionEliminar, ViewTerreno, ViewAccionesDeCiudad
 class Cogs(commands.Cog):
     
     def __init__(self, bot):
@@ -131,6 +130,23 @@ class Cogs(commands.Cog):
             return
         
         view = ViewEdificacionEliminar(edificacion)
+        embed = view.crear_embed()
+
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
+
+
+    
+    @app_commands.command(name="acciones_de_ciudad", description= "Lista de las acciones que puede tomar una ciudad.")
+    async def accionesDeCiudad(self, interaction: discord.Interaction):
+
+        accionesDeCiudadNegocio = AccionesDeCiudadNegocio()
+        listAcciones = accionesDeCiudadNegocio.listar()
+
+        if not listAcciones:
+            await interaction.response.send_message("No hay acciones registradas.", ephemeral=True)
+            return
+
+        view = ViewAccionesDeCiudad(listAcciones)
         embed = view.crear_embed()
 
         await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
