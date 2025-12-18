@@ -1,5 +1,5 @@
 import discord
-from models.terreno import Terreno
+from dominio.terreno import Terreno
 from negocio.terrenoNegocio import TerrenoNegocio
 
 

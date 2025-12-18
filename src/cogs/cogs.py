@@ -1,17 +1,11 @@
 from discord.ext import commands, tasks #Para los slash commands
 from discord import app_commands #Para los slash commands
 import discord
-from negocio.terrenoNegocio import TerrenoNegocio
-from negocio.edificacionNegocio import EdificacionNegocio
-from models.modalEdificacionModificar import ModalEdificacionModificar
-from models.modalEdificacionAgregar import ModalEdificacionAgregar
-from models.viewEdificacion import ViewEdificacion
-from models.viewEdificacionEliminar import ViewEdificacionEliminar
-from models.viewTerreno import ViewTerreno
-from models.viewTerrenoEliminar import ViewTerrenoEliminar
-from models.modalTerrenoAgregar import ModalTerrenoAgregar
+from negocio import TerrenoNegocio, EdificacionNegocio
+from ui.modals import ModalTerrenoAgregar, ModalEdificacionAgregar, ModalEdificacionModificar
+from ui.views import ViewTerrenoEliminar, ViewEdificacion, ViewEdificacionEliminar, ViewTerreno
 
-class CogsTexto(commands.Cog):
+class Cogs(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot

@@ -1,5 +1,5 @@
 import discord
-from models.edificacion import Edificacion
+from dominio.edificacion import Edificacion
 from negocio.edificacionNegocio import EdificacionNegocio
 
 MAX_EDIFICACIONES_POR_PAGINA = 1 

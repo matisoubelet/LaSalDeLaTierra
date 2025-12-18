@@ -1,7 +1,7 @@
 import mysql.connector
 from typing import Dict, Any, cast, List, Optional, Tuple
 from dao.database import Database
-from models.edificacion import Edificacion
+from dominio.edificacion import Edificacion
 
 class EdificacionDao:
 

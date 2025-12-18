@@ -1,6 +1,5 @@
 from discord.ext import commands, tasks #Para los slash commands
 from discord import app_commands #Para los slash commands
-from models.terreno import Terreno
 from negocio.terrenoNegocio import TerrenoNegocio
 import discord
 

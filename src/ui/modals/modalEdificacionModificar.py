@@ -1,18 +1,18 @@
 from discord.ext import commands, tasks #Para los slash commands
 from discord import app_commands #Para los slash commands
-from models.edificacion import Edificacion
+from dominio.edificacion import Edificacion
 from negocio.edificacionNegocio import EdificacionNegocio
 import discord
 
-class ModalEdificacionAgregar(discord.ui.Modal):
+class ModalEdificacionModificar(discord.ui.Modal):
     
-    def __init__(self, nombre):
-        super().__init__(title=f"Agregar: {nombre}")
-        self.nombre = nombre
-
-
+    def __init__(self, edificacion:Edificacion):
+        super().__init__(title=f"Modificar: {edificacion.getNombre()}")
+        self.edificacion = edificacion
+        
         self.input_descripcion = discord.ui.TextInput(
             label="Descripción",
+            default=str(edificacion.getDescripcion()),
             style=discord.TextStyle.paragraph,
             placeholder="Descripción de la edificación",
             max_length=500
@@ -22,6 +22,7 @@ class ModalEdificacionAgregar(discord.ui.Modal):
        
         self.input_efecto = discord.ui.TextInput(
             label="Efecto (numero)",
+            default=str(edificacion.getEfecto()),
             placeholder="Cantidad (usar 0 si no aplica)"
         )
         self.add_item(self.input_efecto)
@@ -29,6 +30,7 @@ class ModalEdificacionAgregar(discord.ui.Modal):
       
         self.input_industria = discord.ui.TextInput(
             label="Costo de industria (numero)",
+            default=str(edificacion.getIndustria()),
             placeholder="Cantidad (usar 0 si no aplica)"
         )
         self.add_item(self.input_industria)
@@ -36,6 +38,7 @@ class ModalEdificacionAgregar(discord.ui.Modal):
        
         self.input_riqueza = discord.ui.TextInput(
             label="Costo de riqueza (numero)",
+            default=str(edificacion.getRiqueza()),
             placeholder="Cantidad (usar 0 si no aplica)"
         )
         self.add_item(self.input_riqueza)
@@ -43,6 +46,7 @@ class ModalEdificacionAgregar(discord.ui.Modal):
       
         self.input_riqXturno = discord.ui.TextInput(
             label="Genera riqueza por turno (S/N)",
+            default=("S" if edificacion.getRiqXturno() else "N"),
             placeholder="S o N"
         )
         self.add_item(self.input_riqXturno)
@@ -80,13 +84,11 @@ class ModalEdificacionAgregar(discord.ui.Modal):
         if efecto < 0 or industria < 0 or riqueza < 0:
             await interaction.response.send_message("Debe ingresar valores numéricos mayor o iguales a 0.", ephemeral=True)
             return
+
+
+        edificacion = Edificacion(self.edificacion.getID(), self.edificacion.getNombre(), self.input_descripcion.value, efecto, industria, riqueza, riqXturno)
         
         negocio = EdificacionNegocio()
-        agrego = negocio.agregar(self.nombre, self.input_descripcion.value, efecto, industria, riqueza, riqXturno)
+        negocio.modificar(edificacion)
 
-        if(agrego == -1):
-            await interaction.response.send_message("Hubo un error al intentar agregar la edificacion.", ephemeral=True)
-        elif(agrego):
-            await interaction.response.send_message("¡Edificacion agregada exitosamente!", ephemeral=True)
-        else:
-            await interaction.response.send_message("Edificacion existente, intente con otro nombre.", ephemeral=True)
+        await interaction.response.send_message("¡Modificacion realizada exitosamente!", ephemeral=True)

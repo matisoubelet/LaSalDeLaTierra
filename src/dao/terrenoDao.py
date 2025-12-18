@@ -1,7 +1,7 @@
 import mysql.connector
 from typing import Dict, Any, cast, Optional
 from dao.database import Database
-from models.terreno import Terreno
+from dominio.terreno import Terreno
 from typing import List
 
 class TerrenoDao:

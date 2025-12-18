@@ -1,5 +1,5 @@
 from dao.edificacionDao import EdificacionDao
-from models.edificacion import Edificacion
+from dominio.edificacion import Edificacion
 
 class EdificacionNegocio:
 

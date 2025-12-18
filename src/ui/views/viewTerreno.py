@@ -1,28 +1,28 @@
 import discord
 from math import ceil
 from typing import List
-from models.edificacion import Edificacion
+from dominio.terreno import Terreno
 
 
-MAX_EDIFICACIONES_POR_PAGINA = 5  #Este numero es especifico para las edificaciones, dado que cada una ocupa 3 fields. Cuando hagas otra paginacion, revisalo.
+MAX_TERRENOS_POR_PAGINA = 5
 
 
-class ViewEdificacion(discord.ui.View):
+class ViewTerreno(discord.ui.View):
 
-    def __init__(self, edificaciones: List[Edificacion], timeout: int = 120):
+    def __init__(self, terrenos: List[Terreno], timeout: int = 120):
         super().__init__(timeout=timeout)
-        self.edificaciones = edificaciones
+        self.terrenos = terrenos
         self.pagina_actual = 0
-        self.total_paginas = ceil(len(edificaciones) / MAX_EDIFICACIONES_POR_PAGINA) #ceil redondea para arriba, de forma que nunca nos falte espacio en el embed.
+        self.total_paginas = ceil(len(terrenos) / MAX_TERRENOS_POR_PAGINA) #ceil redondea para arriba, de forma que nunca nos falte espacio en el embed.
 
     def crear_embed(self) -> discord.Embed:
-        inicio = self.pagina_actual * MAX_EDIFICACIONES_POR_PAGINA
-        fin = inicio + MAX_EDIFICACIONES_POR_PAGINA
-        chunk = self.edificaciones[inicio:fin]
+        inicio = self.pagina_actual * MAX_TERRENOS_POR_PAGINA
+        fin = inicio + MAX_TERRENOS_POR_PAGINA
+        chunk = self.terrenos[inicio:fin]
 
         embed = discord.Embed(
-            title="EDIFICACIONES",
-            description="Listado de las edificaciones y sus costos.",
+            title="TERRENOS",
+            description="Listado de los terrenos y sus descripciones.",
             color=discord.Color.purple()
         )
 
@@ -35,28 +35,11 @@ class ViewEdificacion(discord.ui.View):
             text=f"Página {self.pagina_actual + 1} / {self.total_paginas}"
         )
 
-        for e in chunk:
+        for t in chunk:
             embed.add_field(
-                name=f"{e.getNombre().upper()}\n" + "‾" * (len(e.getNombre()) + 3),
-                value=e.getDescripcion(),
+                name=f"{t.getNombre().upper()}\n" + "‾" * (len(t.getNombre()) + 3),
+                value=t.getDescripcion(),
                 inline=False
-            )
-
-            embed.add_field(
-                name="Industria:",
-                value=str(e.getIndustria()),
-                inline=True
-            )
-
-            if e.getRiqXturno():
-                riqueza = f"{e.getRiqueza()} X turno"
-            else:
-                riqueza = str(e.getRiqueza())
-
-            embed.add_field(
-                name="Riqueza:",
-                value=riqueza,
-                inline=True
             )
 
         return embed
