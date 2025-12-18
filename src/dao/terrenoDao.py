@@ -105,3 +105,16 @@ class TerrenoDao:
         return resultado
     
     
+    def modificar(self, terreno: Terreno):
+
+        self.cursor.callproc('MODIFICAR_TERRENO',
+            (
+            terreno.getID(),
+            terreno.getNombre(),
+            terreno.getDescripcion()
+            )
+        )
+
+        self.db.commit() #Esto se debe poner tras ejecutar el prodecidimiento, siempre que se trate de un ALTER, DELETE o INSERT.
+        self.close_cursor()
+        self.cursor = self.db.cursor()

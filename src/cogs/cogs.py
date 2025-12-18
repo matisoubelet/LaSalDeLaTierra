@@ -2,7 +2,7 @@ from discord.ext import commands, tasks #Para los slash commands
 from discord import app_commands #Para los slash commands
 import discord
 from negocio import TerrenoNegocio, EdificacionNegocio, AccionesDeCiudadNegocio
-from ui.modals import ModalTerrenoAgregar, ModalEdificacionAgregar, ModalEdificacionModificar
+from ui.modals import ModalTerrenoAgregar, ModalEdificacionAgregar, ModalEdificacionModificar, ModalTerrenoModificar
 from ui.views import ViewTerrenoEliminar, ViewEdificacion, ViewEdificacionEliminar, ViewTerreno, ViewAccionesDeCiudad
 class Cogs(commands.Cog):
     
@@ -30,6 +30,21 @@ class Cogs(commands.Cog):
     async def agregarTerreno(self, interaction: discord.Interaction, nombre:str):
 
         modal = ModalTerrenoAgregar(nombre)
+        await interaction.response.send_modal(modal)
+
+    
+    @app_commands.command(name="modificar_terreno", description= "Modifica un terreno segun su nombre.")
+    @app_commands.describe(nombre = "Nombre del terreno")
+    async def modificarTerreno(self, interaction: discord.Interaction, nombre:str):
+
+        terrenoNegocio = TerrenoNegocio()
+        terreno = terrenoNegocio.buscarXnombre(nombre)
+
+        if terreno is None:
+            await interaction.response.send_message("El terreno no existe", ephemeral=True)
+            return
+
+        modal = ModalTerrenoModificar(terreno)
         await interaction.response.send_modal(modal)
 
     

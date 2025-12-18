@@ -1,4 +1,5 @@
 from dao.terrenoDao import TerrenoDao
+from dominio.terreno import Terreno
 
 class TerrenoNegocio:
 
@@ -26,3 +27,5 @@ class TerrenoNegocio:
         return self.dao.agregar(nombre, descripcion)
     
     
+    def modificar(self, terreno: Terreno):
+        return self.dao.modificar(terreno)
