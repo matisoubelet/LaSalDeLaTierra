@@ -3,6 +3,7 @@ from discord import app_commands, Interaction
 
 from negocio import AccionesDeCiudadNegocio
 from ui.views import ViewAccionesDeCiudad
+from ui.modals import ModalAccionesDeCiudadModificar
 
 
 class CogsAccionesDeCiudad(commands.Cog):
@@ -24,3 +25,15 @@ class CogsAccionesDeCiudad(commands.Cog):
         embed = view.crear_embed()
 
         await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
+
+
+    @app_commands.command(name="modificar_accion_de_ciudad", description="Modifica una accion de ciudad")
+    async def modificar_accion_de_ciudad(self, interaction: Interaction, nombre: str):
+        negocio = AccionesDeCiudadNegocio()
+        accion = negocio.buscarXnombre(nombre)
+
+        if accion is None:
+            await interaction.response.send_message("La accion no existe", ephemeral=True)
+            return
+
+        await interaction.response.send_modal(ModalAccionesDeCiudadModificar(accion))

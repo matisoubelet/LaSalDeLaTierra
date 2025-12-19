@@ -8,3 +8,9 @@ class AccionesDeCiudadNegocio:
 
     def listar(self):
         return self.dao.listar()
+    
+    def modificar(self, accion: AccionesDeCiudad):
+        return self.dao.modificar(accion)
+    
+    def buscarXnombre(self, nombre):
+        return self.dao.buscarXnombre(nombre)
