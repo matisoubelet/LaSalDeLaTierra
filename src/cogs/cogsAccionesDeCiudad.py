@@ -3,7 +3,7 @@ from discord import app_commands, Interaction
 
 from negocio import AccionesDeCiudadNegocio
 from ui.views import ViewAccionesDeCiudad
-from ui.modals import ModalAccionesDeCiudadModificar
+from ui.modals import ModalAccionesDeCiudadModificar, ModalAccionesDeCiudadAgregar
 
 
 class CogsAccionesDeCiudad(commands.Cog):
@@ -37,3 +37,9 @@ class CogsAccionesDeCiudad(commands.Cog):
             return
 
         await interaction.response.send_modal(ModalAccionesDeCiudadModificar(accion))
+
+
+    @app_commands.command(name="agregar_accion_de_ciudad", description="Agrega una accion de ciudad")
+    async def agregar_accion_de_ciudad(self, interaction: Interaction, nombre: str):
+        
+        await interaction.response.send_modal(ModalAccionesDeCiudadAgregar(nombre))

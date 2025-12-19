@@ -97,3 +97,27 @@ class AccionesDeCiudadDao:
         self.close_cursor()
         self.cursor = self.db.cursor()
         return None
+    
+
+    def agregar(self, nombre, requisito, descripcion, efecto, industria, poblacion, riqueza) -> int:
+        self.cursor.execute(
+            "CALL AGREGAR_ACCION_DE_CIUDAD(%s,%s,%s,%s,%s,%s,%s)",
+            (nombre, requisito, descripcion, efecto, industria, poblacion, riqueza)
+        )
+
+        resultado = 0
+
+        while True:
+            raw = self.cursor.fetchone()
+            if raw is not None:
+                fila = cast(Dict[str, Any], raw)
+                resultado = int(fila["RESULTADO"])
+
+            if not self.cursor.nextset():
+                break
+
+        self.db.commit()
+        self.close_cursor() 
+        self.cursor = self.db.cursor()
+
+        return resultado
