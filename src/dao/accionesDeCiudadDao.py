@@ -121,3 +121,27 @@ class AccionesDeCiudadDao:
         self.cursor = self.db.cursor()
 
         return resultado
+    
+
+    def eliminar(self, nombre):
+
+        self.cursor.callproc("ELIMINAR_ACCION_DE_CIUDAD", (nombre,))
+
+        resultado = None
+
+        for result in self.cursor.stored_results():
+            fila = result.fetchone()
+            if fila is not None:
+                fila = tuple(fila) 
+                resultado = fila[0]
+
+        self.db.commit()
+        self.close_cursor()
+        self.cursor = self.db.cursor()
+
+        if resultado is None:
+            return -1 
+        elif resultado:
+            return 1
+        else:
+            return 0

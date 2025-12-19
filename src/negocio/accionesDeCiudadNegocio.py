@@ -21,3 +21,7 @@ class AccionesDeCiudadNegocio:
 
     def agregar(self, nombre, requisito, descripcion, efecto, industria, poblacion, riqueza):
         return self.dao.agregar(nombre, requisito, descripcion, efecto, industria, poblacion, riqueza)
+    
+
+    def eliminar(self, nombre):
+        return self.dao.eliminar(nombre)

@@ -2,7 +2,7 @@ from discord.ext import commands
 from discord import app_commands, Interaction
 
 from negocio import AccionesDeCiudadNegocio
-from ui.views import ViewAccionesDeCiudad
+from ui.views import ViewAccionesDeCiudad, ViewAccionesDeCiudadEliminar
 from ui.modals import ModalAccionesDeCiudadModificar, ModalAccionesDeCiudadAgregar
 
 
@@ -41,5 +41,24 @@ class CogsAccionesDeCiudad(commands.Cog):
 
     @app_commands.command(name="agregar_accion_de_ciudad", description="Agrega una accion de ciudad")
     async def agregar_accion_de_ciudad(self, interaction: Interaction, nombre: str):
-        
+
         await interaction.response.send_modal(ModalAccionesDeCiudadAgregar(nombre))
+
+
+    @app_commands.command(name="eliminar_accion_de_ciudad", description="Elimina una accion de ciudad.")
+    async def eliminar_accion_de_ciudad(self, interaction: Interaction, nombre: str):
+        negocio = AccionesDeCiudadNegocio()
+        accion = negocio.buscarXnombre(nombre)
+
+        if accion is None:
+            await interaction.response.send_message(
+                "La accion no existe", ephemeral=True
+            )
+            return
+
+        view = ViewAccionesDeCiudadEliminar(accion)
+        await interaction.response.send_message(
+            embed=view.crear_embed(),
+            view=view,
+            ephemeral=True
+        )
