@@ -1,15 +1,15 @@
 import discord
 from math import ceil
 from typing import List
-from dominio.accionesDeCiudad import AccionesDeCiudad
+from dominio.accionesDeUnidad import AccionesDeUnidad
 
 
-MAX_ACCIONES_POR_PAGINA = 4  #Este numero es especifico para las edificaciones, dado que cada una ocupa 3 fields. Cuando hagas otra paginacion, revisalo.
+MAX_ACCIONES_POR_PAGINA = 5  #Este numero es especifico para las edificaciones, dado que cada una ocupa 3 fields. Cuando hagas otra paginacion, revisalo.
 
 
-class ViewAccionesDeCiudad(discord.ui.View):
+class ViewAccionesDeUnidad(discord.ui.View):
 
-    def __init__(self, acciones: List[AccionesDeCiudad], timeout: int = 120):
+    def __init__(self, acciones: List[AccionesDeUnidad], timeout: int = 120):
         super().__init__(timeout=timeout)
         self.acciones = acciones
         self.pagina_actual = 0
@@ -21,8 +21,8 @@ class ViewAccionesDeCiudad(discord.ui.View):
         chunk = self.acciones[inicio:fin]
 
         embed = discord.Embed(
-            title="ACCIONES DE CIUDAD",
-            description="En cada ronda, cada ciudad que controles puede tomar una acción de la lista de abajo. No hay límite, pero cada acción de ciudad cuesta recurso y algunas tienen un requisito.",
+            title="ACCIONES DE UNIDAD",
+            description="Todas las unidades pueden desplazarse por el mapa una cantidad de casilleros determinada en las estadísticas de la unidad. Luego de ese primer movimiento, cada Unidad puede tomar una sola Acción de Unidad de la lista que se muestra a continuación. Algunas tienen costo, otras son gratis:",
             color=discord.Color.purple()
         )
 
@@ -42,21 +42,41 @@ class ViewAccionesDeCiudad(discord.ui.View):
                 inline=False
             )
 
-            embed.add_field(
-                name="Requisito:",
-                value=str(a.getRequisito()),
-                inline=False
-            )
+            if a.getTipo() == 0:
+
+                embed.add_field(
+                    name="Tipo:",
+                    value=f"Militar ({a.getTipo()})",
+                    inline=True
+                )
+
+            elif a.getTipo() == 1:
+
+                embed.add_field(
+                    name="Tipo:",
+                    value=f"Caravana ({a.getTipo()})",
+                    inline=True
+                )
+
+            elif a.getTipo() == 2:
+
+                embed.add_field(
+                    name="Tipo:",
+                    value=f"Explorador ({a.getTipo()})",
+                    inline=True
+                )
+            
+            else:
+
+                embed.add_field(
+                    name="Tipo:",
+                    value=f"Cualquiera ({a.getTipo()})",
+                    inline=True
+                )
 
             embed.add_field(
                 name="Industria:",
                 value=str(a.getIndustria()),
-                inline=True
-            )
-
-            embed.add_field(
-                name="Poblacion:",
-                value=str(a.getPoblacion()),
                 inline=True
             )
 

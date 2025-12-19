@@ -22,7 +22,7 @@ class ViewEdificacion(discord.ui.View):
 
         embed = discord.Embed(
             title="EDIFICACIONES",
-            description="Listado de las edificaciones y sus costos.",
+            description="Dentro de cada Ciudad hay espacio para Edificaciones; éstas son construcciones internas que no ocupan espacio en el mapa sino en la Ciudad misma. Las Edificaciones permiten que la civilización pueda realizar nuevas acciones, o entrenar nuevos tipos de unidades.Todas las Ciudades pueden tener hasta 6 Edificaciones. Los Asentamientos pueden tener hasta 2 Edificaciones.",
             color=discord.Color.purple()
         )
 

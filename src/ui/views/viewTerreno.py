@@ -22,7 +22,7 @@ class ViewTerreno(discord.ui.View):
 
         embed = discord.Embed(
             title="TERRENOS",
-            description="Listado de los terrenos y sus descripciones.",
+            description="Cada terreno tiene características que permiten la construcción de ciertos asentamientos, ventajas y desventajas para para el traslado y el combate de una unidad, entre otras cosas.",
             color=discord.Color.purple()
         )
 

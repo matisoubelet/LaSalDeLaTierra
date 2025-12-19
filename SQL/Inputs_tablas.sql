@@ -75,3 +75,35 @@ VALUES
 (12, 2, 0, 0);
 
 SELECT * FROM COSTOS_ACCIONES_DE_CIUDAD;
+
+# 0 Militar, 1 Caravana, 2 Explorador, 3 Cualquiera
+INSERT INTO ACCIONES_DE_UNIDAD(NOMBRE, TIPO, DESCRIPCION)
+VALUES
+('Marcha/Retirada', 0, 'Move tu Unidad de nuevo, la mitad de su velocidad normal, redondeado abajo. Esta acción puede hacerse incluso si estás al lado de una casilla ocupada por un enemigo. Si terminás en una pelea después de esta acción, estarás en desventaja (-10 Impacto)'),
+('Dividir/Reforzar', 0, 'Traslada una cantidad de Fuerza a una Unidad adyacente, o crea una nueva Unidad, o Unidades, con una cantidad de Fuerza que desees, disponible. Los activos como artefactos o u.d.élite pueden trasladarse también.'),
+('Embarcar', 3, 'Tu unidad pasa de ubicarse en un casillero de tierra a uno de agua. El costo representa a tu unidad buscando o construyendo barcas.'),
+('Explorar', 0, 'Tu unidad revisa los casilleros adyacentes en búsqueda de cosas secretas.'),
+('Entregar Activo', 0, 'Tu unidad entrega el numero de elites y reliquias que quieras a otra unidad'),
+('Conquistar Ciudad de Jugador', 0, 'Esta accion representa el tiempo requerido para establecer una nueva politica en una ciudad. No es requerido para los NPCs'),
+('Construir Asentamiento', 1, 'Construí cualquier asentamiento válido para la casilla donde la Unidad está situada. (Granja, aserradero, mina, pueblo, fuerte, puerto, etc.)'),
+('Entregar Activo', 1, 'Tu unidad entrega el numero de elites y reliquias que quieras a otra unidad'),
+('Construir Guarida', 2, 'Los exploradores construyen una guarida para estacionarse y detectar unidades ocultas.'),
+('Explorar', 2, 'Revela información sobre el casillero donde se encuentra la unidad, y adyacente.');
+
+SELECT * FROM ACCIONES_DE_UNIDAD;
+
+
+INSERT INTO COSTOS_ACCIONES_DE_UNIDAD(ID_ACCION, INDUSTRIA, RIQUEZA)
+VALUES
+(1, 0, 0),
+(2, 0, 0),
+(3, 2, 0),
+(4, 1, 0),
+(5, 0, 0),
+(6, 2, 2),
+(7, 4, 0),
+(8, 0, 0),
+(9, 2, 0),
+(10, 0, 0);
+
+SELECT * FROM COSTOS_ACCIONES_DE_UNIDAD;
