@@ -23,7 +23,7 @@ class ViewAccionesDeUnidad(discord.ui.View):
         embed = discord.Embed(
             title="ACCIONES DE UNIDAD",
             description="Todas las unidades pueden desplazarse por el mapa una cantidad de casilleros determinada en las estadísticas de la unidad. Luego de ese primer movimiento, cada Unidad puede tomar una sola Acción de Unidad de la lista que se muestra a continuación. Algunas tienen costo, otras son gratis:",
-            color=discord.Color.purple()
+            color=discord.Color.blue()
         )
 
         embed.set_author(

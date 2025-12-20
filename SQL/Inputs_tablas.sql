@@ -107,3 +107,46 @@ VALUES
 (10, 0, 0);
 
 SELECT * FROM COSTOS_ACCIONES_DE_UNIDAD;
+
+# 0 Primavera, 1 Verano, 2 Otoño.
+INSERT INTO CULTIVOS (NOMBRE, ESTACION)
+VALUES
+('Ajo', 0),
+('Zanahorias', 0),
+('Arroz', 0),
+('Chirivía', 0),
+('Coliflor', 0),
+('Frutillas', 0),
+('Chauchas', 0),
+('Papa', 0),
+('Cafeto', 0),
+('Tulipán', 0),
+('Soja', 0),
+('Sorgo', 0),
+('Arándano', 1),
+('Amapola', 1),
+('Ají', 1),
+('Girasol', 1),
+('Repollo', 1),
+('Lúpulo', 1),
+('Choclo', 1),
+('Tomate', 1),
+('Trigo', 1),
+('Rabanito', 1),
+('Melón', 1),
+('Mandioca', 1),
+('Batata', 2),
+('Alcachofa', 2),
+('Berenjena', 2),
+('Calabaza', 2),
+('Brócoli', 2),
+('Grosella', 2),
+('Remolacha', 2),
+('Aceitunas', 2),
+('Espinaca', 2),
+('Uvas', 2),
+('Acelga', 2),
+('Cebolla', 2);
+
+SELECT * FROM CULTIVOS;
+

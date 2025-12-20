@@ -23,7 +23,7 @@ class ViewAccionesDeCiudad(discord.ui.View):
         embed = discord.Embed(
             title="ACCIONES DE CIUDAD",
             description="En cada ronda, cada ciudad que controles puede tomar una acción de la lista de abajo. No hay límite, pero cada acción de ciudad cuesta recurso y algunas tienen un requisito.",
-            color=discord.Color.purple()
+            color=discord.Color.gold()
         )
 
         embed.set_author(

@@ -22,7 +22,4 @@ class Terreno:
         return self.descripcion
     
 
-    def __repr__(self):
-        return f"Terreno(id={self.id}, nombre='{self.nombre}', descripcion='{self.descripcion}')"
-
     

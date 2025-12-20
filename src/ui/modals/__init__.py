@@ -6,6 +6,8 @@ from .modalAccionesDeCiudadModificar import ModalAccionesDeCiudadModificar
 from .modalAccionesDeCiudadAgregar import ModalAccionesDeCiudadAgregar
 from .modalAccionesDeUnidadAgregar import ModalAccionesDeUnidadAgregar
 from .modalAccionesDeUnidadModificar import ModalAccionesDeUnidadModificar
+from .modalCultivoAgregar import ModalCultivoAgregar
+from .modalCultivoModificar import ModalCultivoModificar
 
 __all__ = [
     "ModalTerrenoAgregar",
@@ -15,5 +17,7 @@ __all__ = [
     "ModalAccionesDeCiudadModificar",
     "ModalAccionesDeCiudadAgregar",
     "ModalAccionesDeUnidadAgregar",
-    "ModalAccionesDeUnidadModificar"
+    "ModalAccionesDeUnidadModificar",
+    "ModalCultivoAgregar",
+    "ModalCultivoModificar"
 ]

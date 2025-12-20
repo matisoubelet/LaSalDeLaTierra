@@ -5,7 +5,9 @@ from .viewTerrenoEliminar import ViewTerrenoEliminar
 from .viewAccionesDeCiudad import ViewAccionesDeCiudad
 from .viewAccionesDeCiudadEliminar import ViewAccionesDeCiudadEliminar
 from .viewAccionesDeUnidad import ViewAccionesDeUnidad
-from .viewAccionDeUnidadEliminar import ViewAccionesDeUnidadEliminar
+from .viewAccionesDeUnidadEliminar import ViewAccionesDeUnidadEliminar
+from .viewCultivo import ViewCultivo
+from .viewCultivoEliminar import ViewCultivoEliminar
 
 __all__ = [
     "ViewEdificacion",
@@ -15,5 +17,7 @@ __all__ = [
     "ViewAccionesDeCiudad",
     "ViewAccionesDeCiudadEliminar",
     "ViewAccionesDeUnidad",
-    "ViewAccionesDeUnidadEliminar"
+    "ViewAccionesDeUnidadEliminar",
+    "ViewCultivo",
+    "ViewCultivoEliminar"
 ]
