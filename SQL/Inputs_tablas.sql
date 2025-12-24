@@ -150,3 +150,101 @@ VALUES
 
 SELECT * FROM CULTIVOS;
 
+
+INSERT INTO BOSQUES(NOMBRE, GRUPO)
+VALUES
+('Abacá', 0),
+('Acacia', 0),
+('Alerce', 0),
+('Bananero', 0),
+('Naranjo', 0),
+('Candil', 0),
+('Cajú', 0),
+('Limonero', 0),
+('Palmera de Azaí', 0),
+('Cacaotero', 0),
+('Manzanero', 1),
+('Durio', 1),
+('Duraznero', 1),
+('Olivo', 1),
+('Tabaco', 1),
+('Pomelo', 1),
+('Caucho', 1),
+('Árbol de té', 1),
+('Cannabis', 1),
+('Hongos', 1),
+('Manglar', 2),
+('Sauce', 2),
+('Aliso', 2),
+('Almendro', 2),
+('Cedro', 2),
+('Abedul', 2),
+('Cerezo', 2),
+('Castaño', 2),
+('Ginko', 2),
+('Arces', 2),
+('Palo borracho', 3),
+('Ciruela', 3),
+('Palta', 3),
+('Pino', 3),
+('Palosanto', 3),
+('Caoba', 3),
+('Bocote', 3),
+('Palisandro', 3),
+('Amaranto', 3),
+('Árbol de laca', 3);
+
+SELECT * FROM BOSQUES ORDER BY GRUPO, NOMBRE;
+
+
+INSERT INTO ANIMALES(NOMBRE, DOMESTICO, GRUPO)
+VALUES
+('Águila', 0, 0),
+('Alce', 0, 0),
+('Anaconda', 0, 0),
+('Bisonte', 0, 0),
+('Buho', 0, 0),
+('Buitre', 0, 0),
+('Caimán', 0, 0),
+('Caballo', 0, 0),
+('Carpincho', 0, 0),
+('Cebra', 0, 0),
+('Chacal', 0, 1),
+('Ciervo', 0, 1),
+('Cobra', 0, 1),
+('Cocodrilo', 0, 1),
+('Culebra', 0, 1),
+('Chimpancé', 0, 1),
+('Elefante', 0, 1),
+('Gato montés', 0, 1),
+('Guepardo', 0, 1),
+('Guacamayo', 0, 1),
+('Halcón', 0, 2),
+('Harpía', 0, 2),
+('Hipopótamo', 0, 2),
+('Iguana', 0, 2),
+('Jaguar', 0, 2),
+('Jirafa', 0, 2),
+('Koala', 0, 2),
+('Lobo', 0, 2),
+('León', 0, 2),
+('Manatí', 0, 2),
+('Marmota', 0, 3),
+('Mono caí', 0, 3),
+('Oso', 0, 3),
+('Pantera', 0, 3),
+('Paloma', 0, 3),
+('Puma', 0, 3),
+('Tapir', 0, 3),
+('Tigre', 0, 3),
+('Tortuga', 0, 3),
+('Zorro', 0, 3);
+
+SELECT * FROM ANIMALES;
+
+SELECT 
+	B.ID, B.NOMBRE AS BOSQUE,
+    GROUP_CONCAT(A.NOMBRE ORDER BY A.NOMBRE SEPARATOR ', ') AS `ANIMALES POR BOSQUE`,
+    B.GRUPO
+	FROM BOSQUES B JOIN ANIMALES A ON B.GRUPO = A.GRUPO
+	GROUP BY B.ID, B.NOMBRE, B.GRUPO;

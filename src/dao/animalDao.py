@@ -1,10 +1,10 @@
 import mysql.connector
 from typing import Dict, Any, cast, Optional
 from dao.database import Database
-from dominio.cultivo import Cultivo
+from dominio.animal import Animal
 from typing import List
 
-class CultivoDao:
+class AnimalDao:
 
     def __init__(self):
         self.db = Database()
@@ -16,30 +16,31 @@ class CultivoDao:
 
 
     
-    def listar(self) -> List[Cultivo]:
+    def listar(self) -> List[Animal]:
 
-            listaCultivos = []
-            self.cursor.execute("SELECT * FROM CULTIVOS ORDER BY ESTACION, NOMBRE ASC")
+            listaAnimales = []
+            self.cursor.execute("SELECT * FROM ANIMALES ORDER BY GRUPO, NOMBRE")
 
             for row in self.cursor.fetchall():
 
                 row = cast(Dict[str, Any], row) #Le estamos diciendo a Pylance que "row" es de tipo diccionario
-                cultivo = Cultivo(
+                animal = Animal(
                 id=row["ID"],
                 nombre=row["NOMBRE"],
-                estacion=row["ESTACION"]
+                domestico=row["DOMESTICO"],
+                grupo=row["GRUPO"]
                 )
-                listaCultivos.append(cultivo)
+                listaAnimales.append(animal)
 
             self.close_cursor()
             self.cursor = self.db.cursor()
             
-            return listaCultivos
+            return listaAnimales
 
 
-    def buscarXnombre(self, nombre: str) -> Optional[Cultivo]:
+    def buscarXnombre(self, nombre: str) -> Optional[Animal]:
 
-        self.cursor.execute("SELECT ID, NOMBRE, ESTACION FROM CULTIVOS WHERE NOMBRE = %s", (nombre,))
+        self.cursor.execute("SELECT ID, NOMBRE, DOMESTICO, GRUPO FROM ANIMALES WHERE NOMBRE = %s", (nombre,))
 
         row = self.cursor.fetchone()
         self.cursor.close()
@@ -49,16 +50,17 @@ class CultivoDao:
 
         row = cast(Dict[str, Any], row)
         
-        return Cultivo(
-            id=row["ID"],
-            nombre=row["NOMBRE"],
-            estacion=row["ESTACION"]
-        )
+        return Animal(
+                id=row["ID"],
+                nombre=row["NOMBRE"],
+                domestico=row["DOMESTICO"],
+                grupo=row["GRUPO"]
+                )
 
 
     def eliminar(self, nombre):
 
-        self.cursor.callproc("ELIMINAR_CULTIVO", (nombre,))
+        self.cursor.callproc("ELIMINAR_ANIMAL", (nombre,))
 
         resultado = None
 
@@ -80,11 +82,11 @@ class CultivoDao:
             return 0
 
 
-    def agregar(self, nombre, estacion) -> int:
+    def agregar(self, nombre, domestico, grupo) -> int:
 
         self.cursor.execute(
-            "CALL AGREGAR_CULTIVO(%s,%s)",
-            (nombre, estacion)
+            "CALL AGREGAR_ANIMAL(%s,%s,%s)",
+            (nombre, domestico, grupo)
         )
 
         resultado = 0
@@ -105,13 +107,14 @@ class CultivoDao:
         return resultado
     
     
-    def modificar(self, cultivo: Cultivo):
+    def modificar(self, animal: Animal):
 
-        self.cursor.callproc('MODIFICAR_CULTIVO',
+        self.cursor.callproc('MODIFICAR_ANIMAL',
             (
-            cultivo.getID(),
-            cultivo.getNombre(),
-            cultivo.getEstacion()
+            animal.getID(),
+            animal.getNombre(),
+            animal.getDomestico(),
+            animal.getGrupo()
             )
         )
 

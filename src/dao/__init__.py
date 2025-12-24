@@ -4,6 +4,8 @@ from .database import Database
 from .accionesDeCiudadDao import AccionesDeCiudadDao
 from .accionesDeUnidadDao import AccionesDeUnidadDao
 from .cultivoDao import CultivoDao
+from .animalDao import AnimalDao
+from .bosqueDao import BosqueDao
 
 __all__ = [
     "TerrenoDao",
@@ -11,5 +13,7 @@ __all__ = [
     "Database",
     "AccionesDeCiudadDao",
     "AccionesDeUnidadDao",
-    "CultivoDao"
+    "CultivoDao",
+    "AnimalDao",
+    "BosqueDao"
 ]

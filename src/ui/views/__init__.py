@@ -8,6 +8,9 @@ from .viewAccionesDeUnidad import ViewAccionesDeUnidad
 from .viewAccionesDeUnidadEliminar import ViewAccionesDeUnidadEliminar
 from .viewCultivo import ViewCultivo
 from .viewCultivoEliminar import ViewCultivoEliminar
+from .viewAnimalEliminar import ViewAnimalEliminar
+from.viewBosqueEliminar import ViewBosqueEliminar
+from .viewBosque import ViewBosque
 
 __all__ = [
     "ViewEdificacion",
@@ -19,5 +22,8 @@ __all__ = [
     "ViewAccionesDeUnidad",
     "ViewAccionesDeUnidadEliminar",
     "ViewCultivo",
-    "ViewCultivoEliminar"
+    "ViewCultivoEliminar",
+    "ViewAnimalEliminar",
+    "ViewBosqueEliminar",
+    "ViewBosque"
 ]
