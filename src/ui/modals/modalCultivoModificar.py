@@ -13,7 +13,7 @@ class ModalCultivoModificar(discord.ui.Modal):
         self.input_estacion = discord.ui.TextInput(
             label="Estacion (numero)",
             default= str(cultivo.getEstacion()),
-            placeholder="0 Primavera, 1 Verano, 2 Otoño.",
+            placeholder="0 Primavera, 1 Verano, 2 Otoño, 3 Cualquiera.",
         )
         self.add_item(self.input_estacion)
 
@@ -35,8 +35,8 @@ class ModalCultivoModificar(discord.ui.Modal):
             return
 
         #Validamos el numero este dentro del rango
-        if estacion < 0 or estacion > 2:
-            await interaction.response.send_message("Debe ingresar valores numéricos entre 0 a 2.", ephemeral=True)
+        if estacion < 0 or estacion > 3:
+            await interaction.response.send_message("Debe ingresar valores numéricos entre 0 a 3.", ephemeral=True)
             return
 
         cultivo = Cultivo(self.cultivo.getID(), self.cultivo.getNombre(), estacion)

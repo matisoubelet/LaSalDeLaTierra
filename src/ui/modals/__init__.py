@@ -12,6 +12,8 @@ from .modalAnimalAgregar import ModalAnimalAgregar
 from .modalAnimalModificar import ModalAnimalModificar
 from.modalBosqueAgregar import ModalBosqueAgregar
 from .modalBosqueModificar import ModalBosqueModificar
+from .modalYacimientoAgregar import ModalYacimientoAgregar
+from .modalYacimientoModificar import ModalYacimientoModificar
 
 __all__ = [
     "ModalTerrenoAgregar",
@@ -27,5 +29,7 @@ __all__ = [
     "ModalAnimalAgregar",
     "ModalAnimalModificar",
     "ModalBosqueAgregar",
-    "ModalBosqueModificar"
+    "ModalBosqueModificar",
+    "ModalYacimientoAgregar",
+    "ModalYacimientoModificar"
 ]

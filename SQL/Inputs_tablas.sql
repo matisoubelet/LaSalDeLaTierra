@@ -108,7 +108,7 @@ VALUES
 
 SELECT * FROM COSTOS_ACCIONES_DE_UNIDAD;
 
-# 0 Primavera, 1 Verano, 2 Otoño.
+# 0 Primavera, 1 Verano, 2 Otoño, 3 Cualquiera.
 INSERT INTO CULTIVOS (NOMBRE, ESTACION)
 VALUES
 ('Ajo', 0),
@@ -146,7 +146,20 @@ VALUES
 ('Espinaca', 2),
 ('Uvas', 2),
 ('Acelga', 2),
-('Cebolla', 2);
+('Cebolla', 2),
+('Alpaca', 3),
+('Búfalo', 3),
+('Burro', 3),
+('Caballo', 3),
+('Cabra', 3),
+('Camello', 3),
+('Chancho', 3),
+('Gallina', 3),
+('Oveja', 3),
+('Pavo real', 3),
+('Vaca/Toro', 3),
+('Vicuña', 3);
+
 
 SELECT * FROM CULTIVOS;
 
@@ -248,3 +261,63 @@ SELECT
     B.GRUPO
 	FROM BOSQUES B JOIN ANIMALES A ON B.GRUPO = A.GRUPO
 	GROUP BY B.ID, B.NOMBRE, B.GRUPO;
+    
+    
+# 0 Piedra, 1 Gema, 2 Metal.    
+INSERT INTO YACIMIENTOS (NOMBRE, TIPO)
+VALUES
+('Bauxita', 0),
+('Alabastro', 0),
+('Caliza', 0),
+('Creta', 0),
+('Conglomerado', 0),
+('Basalto', 0),
+('Dolomita', 0),
+('Lutolita', 0),
+('Limolita', 0),
+('Limonita', 0),
+('Arenisca', 0),
+('Halita (sal)', 0),
+('Grafito', 0),
+('Arcilla', 0),
+('Cuarcita', 0),
+('Azabache', 0),
+('Microclina', 0),
+('Mica', 0),
+('Mármol', 0),
+('Oropimente', 0),
+('Agata', 1),
+('Ambar', 1),
+('Azurita', 1),
+('Cuarzo', 1),
+('Diamante', 1),
+('Esmeralda', 1),
+('Jade', 1),
+('Malaquita', 1),
+('Lapislázuli', 1),
+('Obsidiana', 1),
+('Ojo de tigre', 1),
+('Ópalo', 1),
+('Peridoto', 1),
+('Perla', 1),
+('Pirita', 1),
+('Rubí', 1),
+('Topacio', 1),
+('Turmalina', 1),
+('Turquesa', 1),
+('Zafiro', 1),
+('Aluminio', 2),
+('Arsénico', 2),
+('Bismuto', 2),
+('Cobre', 2),
+('Estaño', 2),
+('Hierro', 2),
+('Mercurio', 2),
+('Níquel', 2),
+('Oro', 2),
+('Paladio', 2),
+('Plata', 2),
+('Platino', 2),
+('Plomo', 2);
+
+SELECT * FROM YACIMIENTOS;

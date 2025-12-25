@@ -6,6 +6,7 @@ from .accionesDeUnidadDao import AccionesDeUnidadDao
 from .cultivoDao import CultivoDao
 from .animalDao import AnimalDao
 from .bosqueDao import BosqueDao
+from .yacimientoDao import YacimientoDao
 
 __all__ = [
     "TerrenoDao",
@@ -15,5 +16,6 @@ __all__ = [
     "AccionesDeUnidadDao",
     "CultivoDao",
     "AnimalDao",
-    "BosqueDao"
+    "BosqueDao",
+    "YacimientoDao"
 ]

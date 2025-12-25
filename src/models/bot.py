@@ -26,7 +26,7 @@ class Bot(commands.Bot):
         self._token = token
 
     async def setup_hook(self):
-        from cogs import CogsAccionesDeCiudad, CogsEdificacion, CogsTerreno, CogsAccionesDeUnidad, CogsCultivo, CogsAnimal, CogsBosque
+        from cogs import CogsAccionesDeCiudad, CogsEdificacion, CogsTerreno, CogsAccionesDeUnidad, CogsCultivo, CogsAnimal, CogsBosque, CogsYacimiento
         
         await self.add_cog(CogsTerreno(self))
         await self.add_cog(CogsEdificacion(self))
@@ -35,6 +35,7 @@ class Bot(commands.Bot):
         await self.add_cog(CogsCultivo(self))
         await self.add_cog(CogsAnimal(self))
         await self.add_cog(CogsBosque(self))
+        await self.add_cog(CogsYacimiento(self))
 
         try:
             await self.tree.sync()

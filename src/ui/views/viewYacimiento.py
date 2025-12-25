@@ -1,29 +1,29 @@
 import discord
 from math import ceil
 from typing import List
-from dominio.cultivo import Cultivo
+from dominio.yacimiento import Yacimiento
 
 
-MAX_CULTIVO_POR_PAGINA = 12
+MAX_YACIMIENTO_POR_PAGINA = 10
 
 
-class ViewCultivo(discord.ui.View):
+class ViewYacimiento(discord.ui.View):
 
-    def __init__(self, cultivo: List[Cultivo], timeout: int = 120):
+    def __init__(self, yacimientos: List[Yacimiento], timeout: int = 120):
         super().__init__(timeout=timeout)
-        self.cultivo = cultivo
+        self.yacimientos = yacimientos
         self.pagina_actual = 0
-        self.total_paginas = ceil(len(cultivo) / MAX_CULTIVO_POR_PAGINA) #ceil redondea para arriba, de forma que nunca nos falte espacio en el embed.
+        self.total_paginas = ceil(len(yacimientos) / MAX_YACIMIENTO_POR_PAGINA) #ceil redondea para arriba, de forma que nunca nos falte espacio en el embed.
 
     def crear_embed(self) -> discord.Embed:
-        inicio = self.pagina_actual * MAX_CULTIVO_POR_PAGINA
-        fin = inicio + MAX_CULTIVO_POR_PAGINA
-        chunk = self.cultivo[inicio:fin]
+        inicio = self.pagina_actual * MAX_YACIMIENTO_POR_PAGINA
+        fin = inicio + MAX_YACIMIENTO_POR_PAGINA
+        chunk = self.yacimientos[inicio:fin]
 
         embed = discord.Embed(
-            title="CULTIVOS",
-            description="La tierra fértil es el terreno más abundante del mapa, y por eso sólo se consigue un sólo producto de ellas. Tirás 1d12  y luego 1d4 para determinar el producto.",
-            color=discord.Color.green()
+            title="YACIMIENTOS",
+            description="Los yacimientos minerales contienen tres categorías de productos; piedra, gema y metales. Cuando construís un asentamiento sobre un yacimiento mineral, obtienes uno de cada categoría, determinado por 1d20. Es posible extraer más del mismo producto, o cavar más profundo para encontrar otros nuevos, con edificaciones.",
+            color=discord.Color.dark_grey()
         )
 
         embed.set_author(
@@ -35,37 +35,29 @@ class ViewCultivo(discord.ui.View):
             text=f"Página {self.pagina_actual + 1} / {self.total_paginas}"
         )
 
-        for c in chunk:
+        for y in chunk:
 
-            if c.getEstacion() == 0:
+            if y.getTipo() == 0:
 
                 embed.add_field(
-                    name=f"{c.getNombre().upper()}\n" + "‾" * (len(c.getNombre()) + 3),
-                    value= "Estacion: Primavera (0)",
+                    name=f"{y.getNombre().upper()}\n" + "‾" * (len(y.getNombre()) + 3),
+                    value= "Tipo: Piedra (0)",
                     inline=False
                 )
 
-            elif c.getEstacion() == 1:
+            elif y.getTipo() == 1:
 
                 embed.add_field(
-                    name=f"{c.getNombre().upper()}\n" + "‾" * (len(c.getNombre()) + 3),
-                    value= "Estacion: Verano (1)",
+                    name=f"{y.getNombre().upper()}\n" + "‾" * (len(y.getNombre()) + 3),
+                    value= "Tipo: Gema (1)",
                     inline=False
                 )
             
-            elif c.getEstacion() == 2:
-
-                embed.add_field(
-                    name=f"{c.getNombre().upper()}\n" + "‾" * (len(c.getNombre()) + 3),
-                    value= "Estacion: Otoño (2)",
-                    inline=False
-                )
-
             else:
 
                 embed.add_field(
-                    name=f"{c.getNombre().upper()}\n" + "‾" * (len(c.getNombre()) + 3),
-                    value= "Estacion: Cualquiera (3)",
+                    name=f"{y.getNombre().upper()}\n" + "‾" * (len(y.getNombre()) + 3),
+                    value= "Tipo: Metal (2)",
                     inline=False
                 )
 

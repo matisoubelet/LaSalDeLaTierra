@@ -56,7 +56,7 @@ class ViewBosque(discord.ui.View):
             )
 
             embed.add_field(
-                name="Animales posibles:",
+                name="Animales que pueden aparecer:",
                 value= animales,
                 inline=False
             )

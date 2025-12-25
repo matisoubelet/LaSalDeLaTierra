@@ -5,6 +5,7 @@ from .cogsAccionesDeUnidad import CogsAccionesDeUnidad
 from .cogsCultivo import CogsCultivo
 from .cogsAnimal import CogsAnimal
 from .cogsBosque import CogsBosque
+from .cogsYacimiento import CogsYacimiento
 
 __all__ = [
     "CogsAccionesDeCiudad",
@@ -13,5 +14,6 @@ __all__ = [
     "CogsAccionesDeUnidad",
     "CogsCultivo",
     "CogsAnimal",
-    "CogsBosque"
+    "CogsBosque",
+    "CogsYacimiento"
 ]

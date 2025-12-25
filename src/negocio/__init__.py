@@ -5,6 +5,7 @@ from .accionesDeUnidadNegocio import AccionesDeUnidadNegocio
 from .cultivoNegocio import CultivoNegocio
 from .animalNegocio import AnimalNegocio
 from .bosqueNegocio import BosqueNegocio
+from .yacimientoNegocio import YacimientoNegocio
 
 __all__ = [
     "TerrenoNegocio",
@@ -13,5 +14,6 @@ __all__ = [
     "AccionesDeUnidadNegocio",
     "CultivoNegocio",
     "AnimalNegocio",
-    "BosqueNegocio"
+    "BosqueNegocio",
+    "YacimientoNegocio"
 ]
